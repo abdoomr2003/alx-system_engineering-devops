@@ -1,5 +1,2 @@
 #!/bin/bash
-
-cwd=$(pwd)
-echo "$cwd"
-
+root@9d30f4b2d52f:/alx-system_engineering-devops/0x00-shell_basics

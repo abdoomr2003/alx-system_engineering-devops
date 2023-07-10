@@ -1,2 +1,2 @@
 #!/bin/bash
-head -3 | teil -1  iacta 
+head -3 iacta | teil -1   

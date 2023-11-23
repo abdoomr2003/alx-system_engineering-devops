@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
+# Dig the data
 
-# Use awk to group visitors by IP and HTTP status code, then count occurrences
-awk '{print $1, $9}' apache-access.log | sort | uniq -c | sort -rn | awk '{print $2, $3, $1}'
+awk '{print $1,$9}' apache-access.log | sort | uniq -c | sort -r

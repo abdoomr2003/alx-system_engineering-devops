@@ -1,4 +1,4 @@
 #!/usr/bin/env bash
+# parse apache logs and show ip and status code
 
-# Use awk to extract IP and HTTP status code from apache-access.log
-awk '{print $1, $9}' apache-access.log
+awk '{print $1,$9}' apache-access.log

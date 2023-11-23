@@ -6,7 +6,7 @@ while [ $j -le $i ];
 do
         if [ $j = 9 ]
         then
-                echo "hi"
+                echo "Hi"
         else
                 echo "Best School"
         fi

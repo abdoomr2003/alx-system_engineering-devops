@@ -1,8 +1,4 @@
 #!/usr/bin/env bash
-#this Bash script that stops 4-to_infinity_and_beyond process.
-pid=$(ps aux | grep '4-to_infinity_and_beyond' | grep -v 'grep' | awk '{print $2}')
-if [ -n "$pid" ];
-then
-    kill "$pid"
+# Don't stop me now
 
-fi
+pgrep -f 4-to_infinity_and_beyond | xargs kill

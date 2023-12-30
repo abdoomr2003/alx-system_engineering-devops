@@ -1,6 +1,6 @@
 # 0x09. Web infrastructure design
 
-## Our teammate
+## Our teammates
 
 * Abdelrhman Amro Amro
 * Abdelrahman Atef

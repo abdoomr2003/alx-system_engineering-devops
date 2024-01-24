@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-
 # Connect to the server using SSH
 # -i flag specifies the private key file
 # 'ubuntu' is the username
 # Replace 'server_address' with the actual server IP address or hostname
+
 ssh -i ~/.ssh/school  ubuntu@34.224.17.89

@@ -4,4 +4,4 @@
 # 'ubuntu' is the username
 # Replace 'server_address' with the actual server IP address or hostname
 
-ssh -i ~/.ssh/school  ubuntu@34.224.17.89
+ssh -i ~/.ssh/school  ubuntu@52.91.166.2

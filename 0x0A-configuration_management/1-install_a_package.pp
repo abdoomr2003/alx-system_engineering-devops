@@ -1,7 +1,7 @@
 # 1-install_a_package.pp
 
 package { 'werkzeug':
-  ensure   => '1.0.1',  # Replace with the appropriate version
+  ensure   => '2.1.1',
   provider => pip3,
 }
 

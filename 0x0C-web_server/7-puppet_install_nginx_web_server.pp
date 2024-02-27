@@ -1,36 +1,25 @@
-# Ensure Nginx package is installed
+# File:   7-puppet_install_nginx_web_server.pp
+# Author: Alex Orland Arévalo Tribaldos
+# email:  <3915@holbertonschool.com>
+
+# Using Puppet| Install Nginx server, setup and configuration
+
 package { 'nginx':
-  ensure => installed,
+  ensure => 'installed'
 }
 
-# Configure Nginx
-file { '/etc/nginx/sites-available/default':
-  ensure  => present,
-  content => "
-server {
-  listen 80 default_server;
-  listen [::]:80 default_server;
-
-  root /var/www/html;
-  index index.html index.htm index.nginx-debian.html;
-
-  server_name _;
-
-  location / {
-    proxy_pass http://127.0.0.1:3000; # Redirect to desired location
-  }
-
-  location /redirect_me {
-    return 301 https://example.com/new-location; # Redirect with 301 Moved Permanently
-  }
-}
-",
-  require => Package['nginx'],
+file { '/var/www/html/index.html':
+  content => 'Hello World',
 }
 
-# Ensure Nginx service is running and enabled
+file_line { 'redirection-301':
+  ensure => 'present',
+  path   => '/etc/nginx/sites-available/default',
+  after  => 'listen 80 default_server;',
+  line   => 'rewrite ^/redirect_me https://www.youtube.com/watch?v=QH2-TGUlwu4 permanent;',
+}
+
 service { 'nginx':
   ensure  => running,
-  enable  => true,
   require => Package['nginx'],
 }

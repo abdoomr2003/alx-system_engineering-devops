@@ -1,28 +1,13 @@
 #!/usr/bin/env bash
 # script that configures a new Ubuntu machine to respect bellow requirements
 
-# Update system
 sudo apt-get update -y
-
-# Install nginx
 sudo apt-get install -y nginx
-
-# Create a new directory for the website
 sudo mkdir -p /var/www/html
-
-# Create an index.html file with the string "Hello World!"
 echo "Hello World!" | sudo tee /var/www/html/index.html
-
-# Configure nginx to serve the website
 sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default.backup
 sudo sed -i 's/root \/var\/www\/html;/root \/var\/www\/html;/' /etc/nginx/sites-available/default
 sudo sed -i 's/index index.html index.htm index.nginx-debian.html;/index index.html;/' /etc/nginx/sites-available/default
-
-# Restart nginx to apply changes
 sudo service nginx restart
-
-# Check if nginx is running and listening on port 80
 sudo netstat -tuln | grep -E 'nginx|80'
-
-# Check if the website is accessible
 curl localhost

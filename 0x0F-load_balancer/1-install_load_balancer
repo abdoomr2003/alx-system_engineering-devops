@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+# script that configure HAProxy for a given list of servers
+
+# Check if HAProxy is installed
+if dpkg-query -l | grep -q "haproxy"; then
+    sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+frontend http_front
+    bind *:80
+    default_backend http_back
+backend http_back
+    balance roundrobin
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
+EOF
+sudo service nginx restart
+else
+    sudo apt-get install --no-install-recommends software-properties-common
+    sudo add-apt-repository ppa:vbernat/haproxy-2.8
+    sudo apt-get install haproxy=2.8.\*
+    sudo tee /etc/haproxy/haproxy.cfg > /dev/null <<EOF
+frontend http_front
+    bind *:80
+    default_backend http_back
+backend http_back
+    balance roundrobin
+    server web-01 [STUDENT_ID]-web-01:80 check
+    server web-02 [STUDENT_ID]-web-02:80 check
+EOF
+sudo service nginx restart
+fi

@@ -1,26 +1,10 @@
-# 2-puppet_custom_http_response_header.pp
-# automate the task of creating a custom HTTP header response, but with Puppet.
-# Install Nginx
-class { '::nginx':
-  ensure => installed,
-}
+#!/usr/bin/env bash
+# add header http in gninx server
 
-# Define the custom HTTP header
-$server_name = $::hostname
-nginx::resource::server { 'default':
-  listen => ['80', '443 ssl'],
-  server_name => '_',
-  ssl => true,
-  ssl_certificate => '/etc/nginx/ssl/nginx.crt',
-  ssl_certificate_key => '/etc/nginx/ssl/nginx.key',
-  location => {
-    '/' => {
-      # Add the custom HTTP header
-      add_header => [
-        'X-Served-By "${server_name}"',
-      ],
-      # Serve a simple message
-      content => 'Hello world!',
-    },
-  },
+exec { 'add_header':
+  command  => 'sudo apt-get update;
+  sudo apt-get -y install nginx;
+  sudo sed -i "/server_name _/a add_header X-Served-By $HOSTNAME;" /etc/nginx/sites-available/default
+  sudo service nginx restart',
+  provider => 'shell',
 }

@@ -43,4 +43,4 @@ By the end of this project, you should be able to explain the following without 
 
 ## Author
 
-Sylvain Kalache, co-founder at Holberton School
+Abdelrahman Atef, software student for Holberton School

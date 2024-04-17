@@ -1,16 +1,7 @@
 #!/usr/bin/env bash
-# This script gracefully reloads Gunicorn workers without causing downtime.
+# Gracefully reloads Gunicorn.
+# Get the PID of the Gunicorn process
+PID=$(pgrep gunicorn)
 
-# Get the PID of the Gunicorn master process using pgrep
-MASTER_PID=$(pgrep -f '[g]unicorn')
-
-# Check if the master process is running
-if [ -z "$MASTER_PID" ]; then
-    echo "Gunicorn master process is not running."
-    exit 1
-fi
-
-# Send a HUP signal to the Gunicorn master process to gracefully reload workers
-kill -HUP "$MASTER_PID"
-
-echo "Gunicorn master process has been instructed to reload workers gracefully."
+# Reload Gunicorn gracefully
+kill -s HUP "$PID"

@@ -3,4 +3,4 @@
 # Closes the workers one by one after they complete
 # pending request then restarts them
 
-pgrep gunicorn | xargs -n 1 kill -HUP
+pkill -HUP gunicorn

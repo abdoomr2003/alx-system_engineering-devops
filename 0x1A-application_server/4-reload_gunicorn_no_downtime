@@ -3,15 +3,14 @@
 # Closes the workers one by one after they complete
 # pending request then restarts them
 
-gunicorn_pids=$(pgrep gunicorn)
+master_pid=$(pgrep -f gunicorn | head -1)
 
-# Check if Gunicorn instances are running
-if [ -n "$gunicorn_pids" ]; then
-    # Send graceful reload signal to each Gunicorn instance
-    for pid in $gunicorn_pids; do
-        kill -s HUP "$pid"
-    done
-    echo "Gunicorn reloaded gracefully."
+# Check if the master_pid variable is set and not empty
+if [ -n "$master_pid" ]; then
+    # If the master_pid variable is set and not empty,
+    # send the HUP signal to the Gunicorn master process
+    kill -HUP "$master_pid"
 else
-    echo "No Gunicorn instances found running."
+    # If the master_pid variable is not set or empty, print an error message
+    echo "Error: Could not find the Gunicorn master process."
 fi

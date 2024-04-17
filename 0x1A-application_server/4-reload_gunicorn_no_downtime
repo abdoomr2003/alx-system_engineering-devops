@@ -1,4 +1,10 @@
-#!/usr/bin/bash
-# Bash script that reloads Gunicorn.
+#!/usr/bin/env bash
+# Script to restart gunicorn service gracefully
+# Closes the workers one by one after they complete
+# pending request then restarts them
 
-pgrep gunicorn | xargs kill -HUP
+pid=$(sudo systemctl show --propert MainPID gunicorn | cut -f 2 -d '=')
+if ps -f --pid "$pid" > /dev/null; then
+	sudo kill -HUP "$pid"
+	sudo systemctl reload gunicorn
+fi

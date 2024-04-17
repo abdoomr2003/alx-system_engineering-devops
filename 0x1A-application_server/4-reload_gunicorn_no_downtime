@@ -9,7 +9,7 @@ gunicorn_pids=$(pgrep gunicorn)
 if [ -n "$gunicorn_pids" ]; then
     # Send graceful reload signal to each Gunicorn instance
     for pid in $gunicorn_pids; do
-        kill -s HUP $pid
+        kill -s HUP "$pid"
     done
     echo "Gunicorn reloaded gracefully."
 else

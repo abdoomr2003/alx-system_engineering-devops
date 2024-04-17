@@ -3,4 +3,13 @@
 # Closes the workers one by one after they complete
 # pending request then restarts them
 
-pkill -HUP gunicorn
+PID=$(pgrep -f 'gunicorn --bind')
+
+if [ -z "$PID" ]
+then
+  echo "Gunicorn is not running."
+else
+  # Send the HUP signal to Gunicorn
+  kill -HUP $PID
+  echo "Gunicorn has been gracefully reloaded."
+fi

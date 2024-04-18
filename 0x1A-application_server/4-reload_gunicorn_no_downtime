@@ -17,7 +17,9 @@ if pgrep gunicorn >/dev/null 2>&1; then
         echo "Gunicorn reloaded without downtime."
     else
         echo "Failed to reload Gunicorn."
+        exit 1
     fi
 else
     echo "Gunicorn is not running."
+    exit 1
 fi

@@ -1,11 +1,18 @@
-# Reconfigure the OS for 'holberton' to login and open a file without any error message
+# 1-user_limit.pp
 
-exec { 'increase-hard-file-limit-holberton-user':
-  command => 'sed -i "/holberton hard/s/4/50000/" /etc/security/limits.conf',
-  path    => '/usr/local/bin/:/bin/'
+file { '/etc/security/limits.conf':
+  content => "holberton hard nofile 97816\nholberton soft nofile 97816\n",
+  owner   => 'root',
+  group   => 'root',
+  mode    => '0644',
 }
 
-exec { 'increase-soft-file-limit-for-holberton-user':
-  command => 'sed -i "/holberton soft/s/5/50000/" /etc/security/limits.conf',
-  path    => '/usr/local/bin/:/bin/'
+exec { 'reload_pam':
+  command     => '/bin/pkill -HUP -u holberton bash',
+  refreshonly => true,
+  subscribe   => File['/etc/security/limits.conf'],
+}
+
+user { 'holberton':
+  ensure => present,
 }
